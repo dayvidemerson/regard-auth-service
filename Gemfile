@@ -52,4 +52,10 @@ group :development, :test do
 
   # RSpec for Rails testing framework [https://rspec.info/]
   gem "rspec-rails", "~> 8.0.0"
+
+  # Collection of testing matchers [https://github.com/thoughtbot/shoulda-matchers]
+  gem "shoulda-matchers", "~> 7.0"
+
+  # Factory Bot for test fixtures [https://github.com/thoughtbot/factory_bot_rails]
+  gem "factory_bot_rails", "~> 6.5"
 end

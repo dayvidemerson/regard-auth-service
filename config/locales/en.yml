@@ -28,4 +28,8 @@
 #       enabled: "ON"
 
 en:
-  hello: "Hello world"
+  services:
+    jwt_service:
+      errors:
+        token_expired: "Token has expired"
+        invalid_token: "Invalid token"

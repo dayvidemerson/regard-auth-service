@@ -33,13 +33,13 @@ class JwtService
 
   class TokenExpiredError < StandardError
     def message
-      "Token has expired"
+      I18n.t("services.jwt_service.errors.token_expired")
     end
   end
 
   class InvalidTokenError < StandardError
     def message
-      "Invalid token"
+      I18n.t("services.jwt_service.errors.invalid_token")
     end
   end
 end
