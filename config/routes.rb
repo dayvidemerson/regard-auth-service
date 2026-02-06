@@ -9,4 +9,8 @@ Rails.application.routes.draw do
   post "register", to: "users#create", format: :json
   post "login", to: "sessions#create", format: :json
   get "profile", to: "profiles#show", format: :json
+
+  # Swagger/OpenAPI docs
+  mount Rswag::Api::Engine => "/api-docs"
+  mount Rswag::Ui::Engine => "/api-docs"
 end

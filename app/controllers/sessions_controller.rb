@@ -9,7 +9,6 @@ class SessionsController < ApplicationController
     if user&.authenticate(params[:password])
       token = JwtService.encode(user_id: user.id)
       render json: {
-        message: "Login successful",
         token: token,
         expires_in: 24.hours.to_i
       }, status: :ok

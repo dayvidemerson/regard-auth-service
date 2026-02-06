@@ -19,7 +19,8 @@ services:
     stdin_open: true
     tty: true
     command: >
-      bash -c "./bin/rails db:prepare &&
+      bash -c " rm ./tmp/pids/server.pid &&
+               ./bin/rails db:prepare &&
                ./bin/rails server -b 0.0.0.0"
 
   db:
