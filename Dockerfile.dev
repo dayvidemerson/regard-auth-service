@@ -1,0 +1,50 @@
+# syntax=docker/dockerfile:1
+ARG RUBY_VERSION=4.0.1
+FROM docker.io/library/ruby:$RUBY_VERSION-slim
+
+# Rails app lives here
+WORKDIR /app
+
+# Install packages needed for development
+RUN apt-get update -qq && \
+    apt-get install --no-install-recommends -y \
+    build-essential \
+    curl \
+    git \
+    libpq-dev \
+    libyaml-dev \
+    pkg-config \
+    postgresql-client && \
+    rm -rf /var/lib/apt/lists /var/cache/apt/archives
+
+# Set development environment
+ENV RAILS_ENV="development" \
+    BUNDLE_PATH="/usr/local/bundle" \
+    BUNDLE_JOBS="4" \
+    HISTFILE="/app/log/.bash_history"
+
+# Install bundler
+RUN gem install bundler
+
+# Copy Gemfile first for better layer caching
+COPY Gemfile Gemfile.lock ./
+COPY vendor/ ./vendor/
+
+# Install gems
+RUN bundle install
+
+# Copy application code
+COPY . .
+
+# Create non-root user for development
+RUN groupadd --system --gid 1000 rails && \
+    useradd rails --uid 1000 --gid 1000 --create-home --shell /bin/bash && \
+    chown -R rails:rails /app /usr/local/bundle
+
+USER rails
+
+# Expose default Rails port
+EXPOSE 3000
+
+# Default command starts Rails server with binding for Docker
+CMD ["./bin/rails", "server", "-b", "0.0.0.0"]
