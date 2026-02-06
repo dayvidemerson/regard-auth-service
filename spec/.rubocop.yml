@@ -1,0 +1,13 @@
+inherit_from: ../.rubocop.yml
+
+require:
+  - rubocop-rspec
+  - rubocop-rspec_rails
+
+# RSpec specific configuration
+RSpec:
+  Language:
+    Includes:
+      Examples:
+        - it_behaves_like
+        - it_should_behave_like
