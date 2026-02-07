@@ -33,3 +33,10 @@ en:
       errors:
         token_expired: "Token has expired"
         invalid_token: "Invalid token"
+  controllers:
+    concerns:
+      authentication:
+        errors:
+          missing_token: "Missing authorization token"
+          user_not_found: "User not found"
+          unauthorized: "Unauthorized"

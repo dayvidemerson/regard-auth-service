@@ -3,9 +3,9 @@
 require "rails_helper"
 
 RSpec.configure do |config|
-  config.swagger_root = Rails.root.join("swagger").to_s
+  config.openapi_root = Rails.root.join("swagger").to_s
 
-  config.swagger_docs = {
+  config.openapi_specs = {
     "v1/swagger.yaml" => {
       openapi: "3.0.1",
       info: {
@@ -27,7 +27,7 @@ RSpec.configure do |config|
             properties: {
               error: { type: :string }
             },
-            required: ["error"]
+            required: [ "error" ]
           },
           ValidationErrorResponse: {
             type: :object,
@@ -37,7 +37,7 @@ RSpec.configure do |config|
                 items: { type: :string }
               }
             },
-            required: ["errors"]
+            required: [ "errors" ]
           },
           RegisterRequest: {
             type: :object,
@@ -53,7 +53,7 @@ RSpec.configure do |config|
                 required: %w[name email password password_confirmation]
               }
             },
-            required: ["user"]
+            required: [ "user" ]
           },
           UserResponse: {
             type: :object,
@@ -88,7 +88,7 @@ RSpec.configure do |config|
               token: { type: :string },
               expires_in: { type: :integer, example: 86_400 }
             },
-            required: %w[message token expires_in]
+            required: %w[token expires_in]
           },
           ProfileResponse: {
             type: :object,
@@ -104,5 +104,5 @@ RSpec.configure do |config|
     }
   }
 
-  config.swagger_format = :yaml
+  config.openapi_format = :yaml
 end

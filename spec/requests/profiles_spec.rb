@@ -19,7 +19,7 @@ RSpec.describe "Profiles", type: :request do
         expect(response).to have_http_status(:ok)
       end
 
-      it "returns current user profile data" do
+      it "returns current user profile data", :aggregate_failures do
         get "/profile", headers: auth_headers, as: :json
 
         body = response.parsed_body
@@ -29,7 +29,7 @@ RSpec.describe "Profiles", type: :request do
         expect(body["email"]).to eq(authenticated_user.email)
       end
 
-      it "does not expose sensitive data" do
+      it "does not expose sensitive data", :aggregate_failures do
         get "/profile", headers: auth_headers, as: :json
 
         body = response.parsed_body

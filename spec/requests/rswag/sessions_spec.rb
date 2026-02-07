@@ -11,8 +11,9 @@ RSpec.describe "Sessions API", type: :request do
       parameter name: :payload, in: :body, schema: { "$ref" => "#/components/schemas/LoginRequest" }
 
       response "200", "login success" do
-        let!(:user) { create(:user, email: "user@example.com", password: "password123") }
         let(:payload) { { email: "user@example.com", password: "password123" } }
+
+        before { create(:user, email: "user@example.com", password: "password123") }
 
         schema "$ref" => "#/components/schemas/LoginResponse"
 

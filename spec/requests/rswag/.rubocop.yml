@@ -1,0 +1,14 @@
+inherit_from: ../../.rubocop.yml
+
+plugins:
+  - rubocop-rspec
+  - rubocop-rspec_rails
+
+inherit_gem:
+  rswag-specs: .rubocop_rspec_alias_config.yml
+
+RSpec/VariableName:
+  Enabled: false
+
+RSpec/NestedGroups:
+  Max: 4

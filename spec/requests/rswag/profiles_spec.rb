@@ -7,11 +7,11 @@ RSpec.describe "Profiles API", type: :request do
     get "Profile" do
       tags "Authentication"
       produces "application/json"
-      security [bearerAuth: []]
+      security [ bearerAuth: [] ]
 
       response "200", "profile returned" do
         include_context "with authenticated user"
-        let(:request_headers) { auth_headers }
+        let(:Authorization) { "Bearer #{auth_token}" }
 
         schema "$ref" => "#/components/schemas/ProfileResponse"
 
@@ -19,7 +19,7 @@ RSpec.describe "Profiles API", type: :request do
       end
 
       response "401", "unauthorized" do
-        let(:request_headers) { { "Authorization" => "Bearer invalid.token.here" } }
+        let(:Authorization) { "Bearer invalid.token.here" }
 
         schema "$ref" => "#/components/schemas/ErrorResponse"
 

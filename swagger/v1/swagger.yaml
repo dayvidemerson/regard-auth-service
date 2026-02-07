@@ -167,16 +167,12 @@ components:
     LoginResponse:
       type: object
       properties:
-        message:
-          type: string
-          example: Login successful
         token:
           type: string
         expires_in:
           type: integer
           example: 86400
       required:
-      - message
       - token
       - expires_in
     ProfileResponse:

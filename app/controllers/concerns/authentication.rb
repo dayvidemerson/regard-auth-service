@@ -11,12 +11,12 @@ module Authentication
 
   def authenticate_user!
     token = extract_token_from_header
-    return render_unauthorized("Missing authorization token") unless token
+    return render_unauthorized(I18n.t("controllers.concerns.authentication.errors.missing_token")) unless token
 
     payload = JwtService.decode(token)
     @current_user = User.find_by(id: payload[:user_id])
 
-    render_unauthorized("User not found") unless @current_user
+    render_unauthorized(I18n.t("controllers.concerns.authentication.errors.user_not_found")) unless @current_user
   rescue JwtService::TokenExpiredError => e
     render_unauthorized(e.message)
   rescue JwtService::InvalidTokenError => e
@@ -34,7 +34,8 @@ module Authentication
     header.split(" ").last
   end
 
-  def render_unauthorized(message = "Unauthorized")
+  def render_unauthorized(message = nil)
+    message ||= I18n.t("controllers.concerns.authentication.errors.unauthorized")
     render json: { error: message }, status: :unauthorized
   end
 end

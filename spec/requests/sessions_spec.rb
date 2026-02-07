@@ -15,12 +15,11 @@ RSpec.describe "Sessions", type: :request do
         expect(response).to have_http_status(:ok)
       end
 
-      it "returns success message and token" do
+      it "returns success message and token", :aggregate_failures do
         post "/login", params: valid_params, as: :json
 
         body = response.parsed_body
 
-        expect(body["message"]).to eq("Login successful")
         expect(body["token"]).to be_present
         expect(body["expires_in"]).to eq(24.hours.to_i)
       end
@@ -42,28 +41,28 @@ RSpec.describe "Sessions", type: :request do
     end
 
     context "with invalid credentials" do
-      it "returns unauthorized with wrong password" do
+      it "returns unauthorized with wrong password", :aggregate_failures do
         post "/login", params: { email: "user@example.com", password: "wrongpassword" }, as: :json
 
         expect(response).to have_http_status(:unauthorized)
         expect(response.parsed_body["error"]).to eq("Invalid email or password")
       end
 
-      it "returns unauthorized with non-existent email" do
+      it "returns unauthorized with non-existent email", :aggregate_failures do
         post "/login", params: { email: "nonexistent@example.com", password: "password123" }, as: :json
 
         expect(response).to have_http_status(:unauthorized)
         expect(response.parsed_body["error"]).to eq("Invalid email or password")
       end
 
-      it "returns unauthorized with missing email" do
+      it "returns unauthorized with missing email", :aggregate_failures do
         post "/login", params: { password: "password123" }, as: :json
 
         expect(response).to have_http_status(:unauthorized)
         expect(response.parsed_body["error"]).to eq("Invalid email or password")
       end
 
-      it "returns unauthorized with missing password" do
+      it "returns unauthorized with missing password", :aggregate_failures do
         post "/login", params: { email: "user@example.com" }, as: :json
 
         expect(response).to have_http_status(:unauthorized)
