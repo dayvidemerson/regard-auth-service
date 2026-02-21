@@ -55,7 +55,7 @@ group :development, :test do
   gem "rubocop-rspec_rails", require: false
 
   # RSpec for Rails testing framework [https://rspec.info/]
-  gem "rspec-rails", "~> 8.0.0"
+  gem "rspec-rails", "~> 8.0.3"
 
   # Collection of testing matchers [https://github.com/thoughtbot/shoulda-matchers]
   gem "shoulda-matchers", "~> 7.0"
